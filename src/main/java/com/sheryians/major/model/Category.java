@@ -16,7 +16,7 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="category_id")
 	private int id;
-	
+	private String name;
 //	public Category(int id, String name) {
 //		super();
 //		this.id = id;
@@ -25,6 +25,7 @@ public class Category {
 
 	public int getId() {
 		return id;
+		
 	}
 
 	public void setId(int id) {
@@ -39,7 +40,7 @@ public class Category {
 		this.name = name;
 	}
 
-	private String name;
+	
 	
 	
 }

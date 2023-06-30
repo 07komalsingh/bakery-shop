@@ -89,8 +89,8 @@ public class AdminController {
 	}
 
 	
-	  @PostMapping("/admin/products/add") public String
-	  productAddPost(@ModelAttribute("productDTO")ProductDTO productDTO
+	  @PostMapping("/admin/products/add")
+	  public String productAddPost(@ModelAttribute("productDTO")ProductDTO productDTO
 	  ,@RequestParam("productImage")MultipartFile file, @RequestParam("imgName")
 	  String imgName )throws IOException{
 	  
@@ -102,11 +102,16 @@ public class AdminController {
 	  product.setPrice(productDTO.getPrice());
 	  product.setWeight(productDTO.getWeight());
 	  product.setDescription(productDTO.getDescription()); String imageUUID;
-	  if(!file.isEmpty()) { imageUUID=file.getOriginalFilename(); Path
-	  fileNameAndPath=Paths.get(uploadDir,imageUUID);
-	  Files.write(fileNameAndPath,file.getBytes());
+	  if(!file.isEmpty()) { 
+		  imageUUID=file.getOriginalFilename(); 
+		 Path fileNameAndPath=Paths.get(uploadDir,imageUUID);
+		  Files.write(fileNameAndPath,file.getBytes());
 	  
-	  } else { imageUUID=imgName; } product.setImageName(imageUUID);
+	  }
+	  else {
+		  imageUUID=imgName;
+		  }
+	  product.setImageName(imageUUID);
 	  productService.addProduct(product);
 	  
 	  
@@ -115,6 +120,35 @@ public class AdminController {
 	  return "redirect:/admin/products";
 	  
 	  }
+	  
+	  
+		@GetMapping("/admin/product/delete/{id}")
+		public String deleteProduct(@PathVariable long id) {
+			productService.removeProductById(id);
+			return "redirect:/admin/products";
+		}
+	  
+		@GetMapping("/admin/product/update/{id}")
+		public String updateProductGet(@PathVariable long id , Model model) {
+			Product product=productService.getProductById(id).get();
+			ProductDTO productDTO=new ProductDTO();
+			productDTO.setId(product.getId());
+			productDTO.setName(product.getName());
+			productDTO.setCategoryId((product.getCategory().getId()));
+			productDTO.setPrice(product.getPrice());
+			productDTO.setWeight((product.getWeight()));
+			productDTO.setDescription(product.getDescription());
+			productDTO.setImageName(product.getImageName());
+			
+			model.addAttribute("categories",categoryService.getAllCategory());
+			model.addAttribute("productDTO",productDTO);
+			
+			return "productsAdd";
+			
+			
+		}
+	  
+	  
 	 
 
 }

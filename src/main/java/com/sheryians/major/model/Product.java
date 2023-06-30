@@ -1,14 +1,18 @@
 package com.sheryians.major.model;
 
 import javax.persistence.Entity;
+import java.util.*;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="product")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +25,15 @@ public class Product {
 	private double price;
 	private double weight;
 	private String description;
+	
 	private String imageName;
 	
-	
-	
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="id", referencedColumnName="id")
+//	private User user;
 
+	
+	
 	
 	public Long getId() {
 		return id;

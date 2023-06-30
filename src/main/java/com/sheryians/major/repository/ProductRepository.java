@@ -10,5 +10,6 @@ import com.sheryians.major.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product , Long>{
 
-	//List<Product> findAllByCateory_Id(int id);
+
+	List<Product> findAllByCategoryId(int categoryId);
 }

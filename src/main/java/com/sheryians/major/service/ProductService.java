@@ -16,24 +16,26 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	public List<Product> getAllProduct(){
+
+	public List<Product> getAllProduct() {
 		return productRepository.findAll();
+		
 	}
+
 	public void addProduct(Product product) {
 		productRepository.save(product);
 	}
-	
+
 	public void removeProductById(long id) {
 		productRepository.deleteById(id);
 	}
-	
-	public Optional<Product> getProductById(long id){
+
+	public Optional<Product> getProductById(long id) {
 		return productRepository.findById(id);
 	}
+
 	
-	/*
-	 * public List<Product> getAllProductsByCategoryId(int id){ return
-	 * productRepository.findAllByCateory_Id(id); }
-	 */
+	  public List<Product> getAllProductsByCategoryId(int id){ return
+	  productRepository.findAllByCategoryId(id); }
+	 
 }
